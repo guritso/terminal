@@ -22,8 +22,8 @@ To use the package, import it into your project:
 import terminal from '@guri/terminal';
 // Setup the terminal (this is necessary to use the console.error function)
 terminal.setup();
-// Start the terminal with a your project's specific port (optional) its only used for the project info
-terminal.start(3000);
+// Start the terminal with a your project's specific host and port ( both are optional) its only used for the project info
+terminal.start('http://localhost', 3000);
 // Log an information message
 terminal.log('This is an info message');
 // Log a success message
