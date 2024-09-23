@@ -3,8 +3,25 @@
 import { color as co } from "./utils.js";
 import { readFileSync } from "fs";
 
-const { stdout } = process;
 
+/**
+ * @typedef {Object} Terminal
+ * @property {number} verbose
+ * @property {Object} levels
+ * @property {string} levels.info
+ * @property {string} levels.fail
+ * @property {string} levels.pass
+ * @property {function(string, number): void} start
+ * @property {function(string): void} pass
+ * @property {function(string): void} log
+ * @property {function(): void} setup
+ * @property {function(): void} clear
+ * @property {function(number): void} setVerbose
+ * @property {function(any): boolean} isError
+ * @property {Object} projectInfo
+ */
+
+/** @type {Terminal} */
 const terminal = {
   verbose: 2,
   levels: {
@@ -14,9 +31,13 @@ const terminal = {
   },
 };
 
+const { stdout } = process;
+
 terminal.projectInfo = (() => {
   try {
-    const { name, version } = JSON.parse(readFileSync("./package.json"));
+    const { name, version } = JSON.parse(
+      readFileSync("./package.json", "utf-8")
+    );
 
     return { name, version };
   } catch (error) {
@@ -27,22 +48,23 @@ terminal.projectInfo = (() => {
 /**
  *  display the project info and the port
  *
+ * @param {string} host - The host to display
  * @param {number} port - The port number to display
  */
-terminal.start = function start(port) {
+terminal.start = function start(host, port) {
   const projectInfo = terminal.projectInfo;
 
   const headLines = [
     `\n%H46  name:%H%H44  ${projectInfo.name} `,
-    `%H47  version:%H%H41  ${projectInfo.version} %H\n`,
-    `%H43  host:%H95  http://localhost:${port || "****"}\n`,
+    `%H105  version:%H%H41  ${projectInfo.version} %H\n`,
+    host ? `%H43  host:%H95  http://${host}:${port || "****"}\n` : "",
     port ? `%H45  port:%H94  ${port}\n` : "",
   ];
 
   for (const line of headLines) {
     stdout.write(co(line));
   }
-}
+};
 
 /**
  *  display the online message
@@ -51,7 +73,7 @@ terminal.start = function start(port) {
  */
 terminal.pass = function pass(data) {
   stdout.write(co(`${terminal.levels.pass} ${data}\n`));
-}
+};
 
 /**
  *  display logs messages
@@ -78,15 +100,17 @@ terminal.log = function log(data) {
 
     if (level === terminal.levels.info) {
       if (typeof data === "object") {
+        // skipcq: JS-0002
         console.log(data);
       } else {
         stdout.write(`${co(data)}\n`);
       }
     } else {
-      console.backup(data);
+      // skipcq: JS-0002
+      console.log(data);
     }
   }
-}
+};
 
 /**
  * Get a list of common error names
@@ -94,9 +118,12 @@ terminal.log = function log(data) {
  * @returns {string[]}
  */
 const getErrorNames = () => {
-  return Object.getOwnPropertyNames(global).filter(name => {
+  return Object.getOwnPropertyNames(global).filter((name) => {
     try {
-      return typeof global[name] === 'function' && global[name].prototype instanceof Error;
+      return (
+        typeof global[name] === "function" &&
+        global[name].prototype instanceof Error
+      );
     } catch (e) {
       return false;
     }
@@ -115,10 +142,10 @@ terminal.isError = (data) => {
   }
 
   if (typeof data === "string") {
-    const errorKeywords = getErrorNames().map(name => `Error: ${name}`);
+    const errorKeywords = getErrorNames().map((name) => `Error: ${name}`);
     errorKeywords.push("Error:");
 
-    return errorKeywords.some(keyword => data.includes(keyword));
+    return errorKeywords.some((keyword) => data.includes(keyword));
   }
 
   return false;
@@ -130,21 +157,15 @@ terminal.isError = (data) => {
 terminal.setup = function setup() {
   // backup the original console.error
   console.backup = console.error;
-  /**
-   * Custom error logging function
-   *
-   * @param  {...any} args
-   */
-  console.error = function(...args) {
-    terminal.log(...args);
-  };
-}
+  // replace the console.error with the terminal.log
+  console.error = terminal.log;
+};
 
 terminal.clear = function clear() {
   if (stdout.isTTY) {
     stdout.clearLine();
   }
-}
+};
 
 /**
  * Set the verbose level
@@ -153,6 +174,6 @@ terminal.clear = function clear() {
  */
 terminal.setVerbose = function setVerbose(verbose) {
   terminal.verbose = verbose;
-}
+};
 
 export default terminal;
