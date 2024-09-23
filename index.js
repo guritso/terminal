@@ -25,9 +25,9 @@ import { readFileSync } from "fs";
 const terminal = {
   verbose: 2,
   levels: {
-    info: co("%H100  info:%H"),
-    fail: co("%H41  fail:%H"),
-    pass: co("%H42  pass:%H"),
+    info: co("%H100  INFO:%H"),
+    fail: co("%H41  FAIL:%H"),
+    pass: co("%H42  PASS:%H"),
   },
 };
 

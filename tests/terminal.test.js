@@ -29,7 +29,7 @@ describe("Terminal Module", () => {
         .mockImplementation(() => true);
       terminal.pass("Operation successful");
 
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("pass"));
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("PASS"));
       mockWrite.mockRestore();
     });
   });
@@ -54,7 +54,7 @@ describe("Terminal Module", () => {
         .mockImplementation(() => true);
 
       terminal.log("Info message");
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("info"));
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("INFO"));
       mockWrite.mockRestore();
     });
 
@@ -65,7 +65,7 @@ describe("Terminal Module", () => {
         .mockImplementation(() => true);
 
       terminal.log("Error: Something went wrong");
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("fail"));
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("FAIL"));
       mockWrite.mockRestore();
     });
 
