@@ -100,22 +100,35 @@ describe('Terminal Module', () => {
 
   describe('clear', () => {
     it('should call stdout.clearLine if stdout is TTY', () => {
+      const originalIsTTY = process.stdout.isTTY;
+      process.stdout.isTTY = true;
+
+      if (!process.stdout.clearLine) {
+        process.stdout.clearLine = jest.fn();
+      }
+
       const mockClearLine = jest.spyOn(process.stdout, 'clearLine').mockImplementation(() => true);
       terminal.clear();
       expect(mockClearLine).toHaveBeenCalled();
+
       mockClearLine.mockRestore();
+      process.stdout.isTTY = originalIsTTY;
+      delete process.stdout.clearLine;
     });
 
     it('should not call stdout.clearLine if stdout is not TTY', () => {
       const originalIsTTY = process.stdout.isTTY;
       process.stdout.isTTY = false;
-      const mockClearLine = jest.spyOn(process.stdout, 'clearLine').mockImplementation(() => true);
 
+      delete process.stdout.clearLine;
+
+      const mockClearLine = jest.spyOn(process.stdout, 'clearLine').mockImplementation(() => true);
+      
       terminal.clear();
       expect(mockClearLine).not.toHaveBeenCalled();
 
-      process.stdout.isTTY = originalIsTTY;
       mockClearLine.mockRestore();
+      process.stdout.isTTY = originalIsTTY;
     });
   });
 
