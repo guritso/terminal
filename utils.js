@@ -50,21 +50,32 @@ export const getErrorNames = () => {
  * @returns {string} - The formatted URL.
  */
 export const formatUrl = (host, port) => {
+  const locals = ["localhost", "127.0.0.1", "0.0.0.0"];
+
   try {
+    if (typeof host !== "string") {
+      return new Error("host must be a string");
+    }
+
     const url = new URL(host);
-    
+
     if (port && port !== url.port) {
       url.port = port;
     }
 
     if (!url.protocol) {
-      url.protocol = 'http:';
-    } else if (url.protocol !== 'https:' && url.protocol !== 'http:') {
-      url.protocol = 'http:';
+      url.protocol = "http:";
+    } else if (url.protocol !== "https:" && url.protocol !== "http:") {
+      url.protocol = "http:";
     }
 
     return { url: url.toString(), port: url.port };
   } catch (error) {
-    return "invalid url";
+    if (locals.includes(host)) {
+      host = `http://${host}`;
+      return { url: `${host}${port ? `:${port}` : ""}/`, port };
+    } else {
+      return error;
+    }
   }
 };

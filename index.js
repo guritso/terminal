@@ -58,8 +58,8 @@ terminal.start = function start(host, port) {
   const headLines = [
     `\n%H46  name:%H%H44  ${projectInfo.name} `,
     `%H105  version:%H%H41  ${projectInfo.version} %H\n`,
-    hostInfo.url ? `%H43  host:%H95  ${hostInfo.url}\n` : "",
-    hostInfo.port ? `%H45  port:%H94  ${hostInfo.port}\n` : "",
+    hostInfo?.url ? `%H43  host:%H95  ${hostInfo.url}\n` : "",
+    hostInfo?.port ? `%H45  port:%H94  ${hostInfo.port}\n` : "",
   ];
 
   for (const line of headLines) {
