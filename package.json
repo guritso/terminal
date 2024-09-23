@@ -1,5 +1,5 @@
 {
-  "name": "@guri/terminal",
+  "name": "@guritso/terminal",
   "description": "A terminal node utility for logging and error handling",
   "version": "1.0.4",
   "type": "module",
