@@ -1,4 +1,4 @@
-# @guri/terminal
+# @guritso/terminal
 
 A terminal node utility for logging and error handling.
 
@@ -23,7 +23,7 @@ yarn add @guritso/terminal
 To use the package, import it into your project:
 
 ```javascript
-import terminal from '@guri/terminal';
+import terminal from '@guritso/terminal';
 // Setup the terminal (this is necessary to use the console.error function)
 terminal.setup();
 // Start the terminal with a your project's specific host and port ( both are optional) its only used for the project info

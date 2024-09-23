@@ -1,7 +1,7 @@
 {
   "name": "@guritso/terminal",
   "description": "A terminal node utility for logging and error handling",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "main": "index.js",
   "license": "GPL-3.0",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GuriTsuki/terminal.git"
+    "url": "git+https://github.com/guritso/terminal.git"
   },
   "keywords": [
     "terminal",
@@ -19,7 +19,7 @@
     "cli",
     "utility"
   ],
-  "author": "GuriTsuki",
+  "author": "GuriTso",
   "devDependencies": {
     "jest": "^29.7.0"
   },
@@ -28,7 +28,7 @@
   },
   "types": "./index.d.ts",
   "bugs": {
-    "url": "https://github.com/GuriTsuki/terminal/issues"
+    "url": "https://github.com/guritso/terminal/issues"
   },
-  "homepage": "https://github.com/GuriTsuki/terminal#readme"
+  "homepage": "https://github.com/guritso/terminal#readme"
 }
