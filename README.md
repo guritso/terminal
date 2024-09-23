@@ -18,13 +18,6 @@ pnpm install github:GuriTsuki/terminal
 yarn add @guri/terminal@github:GuriTsuki/terminal
 ```
 
-### update
-
-```bash
-# add the new version on the end of the line
-pnpm/npm/yarn install/add @guri/terminal@github:GuriTsuki/terminal#v1.0.0
-```
-
 ## Usage
 
 To use the package, import it into your project:
