@@ -72,8 +72,7 @@ export const formatUrl = (host, port) => {
     return { url: url.toString(), port: url.port };
   } catch (error) {
     if (locals.includes(host)) {
-      host = `http://${host}`;
-      return { url: `${host}${port ? `:${port}` : ""}/`, port };
+      return formatUrl(`http://${host}`, port);
     } else {
       return error;
     }
