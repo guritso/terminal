@@ -11,7 +11,7 @@ pnpm install github:GuriTsuki/terminal
 # or
 npm install github:GuriTsuki/terminal
 # or
-yarn add github:GuriTsuki/terminal
+yarn add @guri/terminal@github:GuriTsuki/terminal
 ```
 
 ## Usage
