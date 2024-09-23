@@ -1,5 +1,9 @@
 # @guri/terminal
 
+| example |
+| ------- |
+| ![example](https://i.ibb.co/sm49x0x/Captura-de-tela-de-2024-09-23-05-59-20.png) |
+
 A terminal node utility for logging and error handling.
 
 ## Installation
