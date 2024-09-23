@@ -139,10 +139,22 @@ terminal.isError = (data) => {
  * Setup the console.error to use the terminal.log function
  */
 terminal.setup = function setup() {
-  // backup the original console.error
-  console.backup = console.error;
+  if (typeof console === "object" && console.error) {
+    
+    if (typeof console.backup === "function") {
+      return false
+    }
+    
+    // backup the original console.error
+    console.backup = console.error;
+  } else {
+    throw new Error("console.error is not found");
+  }
+
   // replace the console.error with the terminal.log
   console.error = terminal.log;
+
+  return true
 };
 
 terminal.clear = function clear() {

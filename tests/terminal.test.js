@@ -5,7 +5,6 @@ import terminal from "../index.js";
 describe("Terminal Module", () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    terminal.setup();
   });
 
   describe("start", () => {
@@ -105,6 +104,36 @@ describe("Terminal Module", () => {
       expect(console.error).toBe(terminal.log);
 
       console.error = originalError;
+    });
+
+    it("should backup the original console.error", () => {
+      const originalError = console.error;
+
+      terminal.setup();
+
+      expect(console.backup).toBe(originalError);
+
+      console.error = originalError;
+    });
+
+    it("should not replace console.error if console.backup exists", () => {
+      console.backup = jest.fn();
+      const originalError = console.error;
+      const result = terminal.setup();
+
+      expect(result).toBe(false);
+      expect(console.error).toBe(originalError);
+
+      delete console.backup;
+    });
+
+    it("should throw an error if console.error is not found", () => {
+      const originalConsole = global.console;
+      global.console = { log: jest.fn() };
+
+      expect(() => terminal.setup()).toThrow("console.error is not found");
+
+      global.console = originalConsole;
     });
   });
 
