@@ -1,94 +1,104 @@
-import {jest} from '@jest/globals';
+import { jest } from "@jest/globals";
 
-import terminal from '../index.js';
+import terminal from "../index.js";
 
-describe('Terminal Module', () => {
+describe("Terminal Module", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     terminal.setup();
   });
 
-  describe('start', () => {
-    it('should write project information and port to stdout', () => {
-      const mockWrite = jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
-      terminal.projectInfo = { name: 'test-project', version: '1.0.0' };
+  describe("start", () => {
+    it("should write project information and port to stdout", () => {
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
+      terminal.projectInfo = { name: "test-project", version: "1.0.0" };
 
-      terminal.start('localhost', 3000);
+      terminal.start("localhost", 3000);
 
       expect(mockWrite).toHaveBeenCalled();
       mockWrite.mockRestore();
     });
   });
 
-  describe('pass', () => {
-    it('should write success message to stdout', () => {
-      const mockWrite = jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
-      terminal.pass('Operation successful');
+  describe("pass", () => {
+    it("should write success message to stdout", () => {
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
+      terminal.pass("Operation successful");
 
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining('pass'));
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("pass"));
       mockWrite.mockRestore();
     });
   });
 
-  describe('log', () => {
-    it('should do nothing if verbose is 0', () => {
+  describe("log", () => {
+    it("should do nothing if verbose is 0", () => {
       terminal.setVerbose(0);
-      const mockWrite = jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
 
-      terminal.log('This is a log message');
+      terminal.log("This is a log message");
       expect(mockWrite).not.toHaveBeenCalled();
 
       mockWrite.mockRestore();
     });
 
-    it('should write info message to stdout when verbose is 2', () => {
+    it("should write info message to stdout when verbose is 2", () => {
       terminal.setVerbose(2);
-      const mockWrite = jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
 
-      terminal.log('Info message');
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining('info'));
+      terminal.log("Info message");
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("info"));
       mockWrite.mockRestore();
     });
 
-    it('should write error message to stdout when it is an error', () => {
+    it("should write error message to stdout when it is an error", () => {
       terminal.setVerbose(2);
-      const mockWrite = jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
 
-      terminal.log('Error: Something went wrong');
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining('fail'));
+      terminal.log("Error: Something went wrong");
+      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("fail"));
       mockWrite.mockRestore();
     });
 
-    it('should write object to console.log when data is an object', () => {
+    it("should write object to console.log when data is an object", () => {
       terminal.setVerbose(2);
-      const mockLog = jest.spyOn(console, 'log').mockImplementation(() => true);
+      const mockLog = jest.spyOn(console, "log").mockImplementation(() => true);
 
-      terminal.log({ key: 'value' });
-      expect(mockLog).toHaveBeenCalledWith({ key: 'value' });
+      terminal.log({ key: "value" });
+      expect(mockLog).toHaveBeenCalledWith({ key: "value" });
 
       mockLog.mockRestore();
     });
   });
 
-  describe('isError', () => {
-    it('should return true if the data is an instance of Error', () => {
-      const error = new Error('Test error');
+  describe("isError", () => {
+    it("should return true if the data is an instance of Error", () => {
+      const error = new Error("Test error");
       expect(terminal.isError(error)).toBe(true);
     });
 
-    it('should return true if the string contains an error keyword', () => {
-      expect(terminal.isError('Error: Test error')).toBe(true);
+    it("should return true if the string contains an error keyword", () => {
+      expect(terminal.isError("Error: Test error")).toBe(true);
     });
 
-    it('should return false for data that is not an error', () => {
-      expect(terminal.isError('This is a message')).toBe(false);
+    it("should return false for data that is not an error", () => {
+      expect(terminal.isError("This is a message")).toBe(false);
       expect(terminal.isError({})).toBe(false);
       expect(terminal.isError(123)).toBe(false);
     });
   });
 
-  describe('setup', () => {
-    it('should replace console.error with terminal.log', () => {
+  describe("setup", () => {
+    it("should replace console.error with terminal.log", () => {
       const originalError = console.error;
       terminal.setup();
 
@@ -98,8 +108,8 @@ describe('Terminal Module', () => {
     });
   });
 
-  describe('clear', () => {
-    it('should call stdout.clearLine if stdout is TTY', () => {
+  describe("clear", () => {
+    it("should call stdout.clearLine if stdout is TTY", () => {
       const originalIsTTY = process.stdout.isTTY;
       process.stdout.isTTY = true;
 
@@ -107,7 +117,9 @@ describe('Terminal Module', () => {
         process.stdout.clearLine = jest.fn();
       }
 
-      const mockClearLine = jest.spyOn(process.stdout, 'clearLine').mockImplementation(() => true);
+      const mockClearLine = jest
+        .spyOn(process.stdout, "clearLine")
+        .mockImplementation(() => true);
       terminal.clear();
       expect(mockClearLine).toHaveBeenCalled();
 
@@ -116,14 +128,14 @@ describe('Terminal Module', () => {
       delete process.stdout.clearLine;
     });
 
-    it('should not call stdout.clearLine if stdout is not TTY', () => {
+    it("should not call stdout.clearLine if stdout is not TTY", () => {
       const originalIsTTY = process.stdout.isTTY;
       process.stdout.isTTY = false;
 
       process.stdout.clearLine = jest.fn();
 
-      const mockClearLine = jest.spyOn(process.stdout, 'clearLine');
-      
+      const mockClearLine = jest.spyOn(process.stdout, "clearLine");
+
       terminal.clear();
       expect(mockClearLine).not.toHaveBeenCalled();
 
@@ -133,8 +145,8 @@ describe('Terminal Module', () => {
     });
   });
 
-  describe('setVerbose', () => {
-    it('should update the verbose level', () => {
+  describe("setVerbose", () => {
+    it("should update the verbose level", () => {
       terminal.setVerbose(1);
       expect(terminal.verbose).toBe(1);
     });
