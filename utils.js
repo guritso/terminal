@@ -24,3 +24,47 @@ export const color = (txt) => {
   return res;
 };
 
+/**
+ * Get a list of common error names
+ *
+ * @returns {string[]}
+ */
+export const getErrorNames = () => {
+  return Object.getOwnPropertyNames(global).filter((name) => {
+    try {
+      return (
+        typeof global[name] === "function" &&
+        global[name].prototype instanceof Error
+      );
+    } catch (e) {
+      return false;
+    }
+  });
+};
+
+/**
+ * Format the URL based on the provided host and port.
+ *
+ * @param {string} host - The host to format.
+ * @param {number} port - The port to format.
+ * @returns {string} - The formatted URL.
+ */
+export const formatUrl = (host, port) => {
+  try {
+    const url = new URL(host);
+    
+    if (port && port !== url.port) {
+      url.port = port;
+    }
+
+    if (!url.protocol) {
+      url.protocol = 'http:';
+    } else if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+      url.protocol = 'http:';
+    }
+
+    return { url: url.toString(), port: url.port };
+  } catch (error) {
+    return "invalid url";
+  }
+};

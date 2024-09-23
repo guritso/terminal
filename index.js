@@ -1,6 +1,6 @@
 "use strict";
 
-import { color as co } from "./utils.js";
+import { color as co, getErrorNames, formatUrl } from "./utils.js";
 import { readFileSync } from "fs";
 
 
@@ -25,9 +25,9 @@ import { readFileSync } from "fs";
 const terminal = {
   verbose: 2,
   levels: {
-    info: "%H100  info:%H",
-    fail: "%H41  fail:%H",
-    pass: "%H42  pass:%H",
+    info: co("%H100  info:%H"),
+    fail: co("%H41  fail:%H"),
+    pass: co("%H42  pass:%H"),
   },
 };
 
@@ -53,12 +53,13 @@ terminal.projectInfo = (() => {
  */
 terminal.start = function start(host, port) {
   const projectInfo = terminal.projectInfo;
+  const hostInfo = formatUrl(host, port);
 
   const headLines = [
     `\n%H46  name:%H%H44  ${projectInfo.name} `,
     `%H105  version:%H%H41  ${projectInfo.version} %H\n`,
-    host ? `%H43  host:%H95  http://${host}:${port || "****"}\n` : "",
-    port ? `%H45  port:%H94  ${port}\n` : "",
+    hostInfo.url ? `%H43  host:%H95  ${hostInfo.url}\n` : "",
+    hostInfo.port ? `%H45  port:%H94  ${hostInfo.port}\n` : "",
   ];
 
   for (const line of headLines) {
@@ -72,7 +73,8 @@ terminal.start = function start(host, port) {
  * @param {string} data
  */
 terminal.pass = function pass(data) {
-  stdout.write(co(`${terminal.levels.pass} ${data}\n`));
+  terminal.clear();
+  stdout.write(co(`\r%H1 ${terminal.levels.pass}%H ${data}\n`));
 };
 
 /**
@@ -94,9 +96,9 @@ terminal.log = function log(data) {
   if (Number(verbose) === 1 && stdout.isTTY) {
     terminal.clear();
 
-    stdout.write(co(`\r${level} ${data}`));
+    stdout.write(co(`\r%H1 ${level}%H ${data}`));
   } else {
-    stdout.write(co(`${level} `));
+    stdout.write(co(`%H1 ${level}%H `));
 
     if (level === terminal.levels.info) {
       if (typeof data === "object") {
@@ -110,24 +112,6 @@ terminal.log = function log(data) {
       console.log(data);
     }
   }
-};
-
-/**
- * Get a list of common error names
- *
- * @returns {string[]}
- */
-const getErrorNames = () => {
-  return Object.getOwnPropertyNames(global).filter((name) => {
-    try {
-      return (
-        typeof global[name] === "function" &&
-        global[name].prototype instanceof Error
-      );
-    } catch (e) {
-      return false;
-    }
-  });
 };
 
 /**
@@ -175,5 +159,6 @@ terminal.clear = function clear() {
 terminal.setVerbose = function setVerbose(verbose) {
   terminal.verbose = verbose;
 };
+
 
 export default terminal;
