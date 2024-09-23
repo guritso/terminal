@@ -1,7 +1,7 @@
 {
   "name": "@guritso/terminal",
   "description": "A terminal node utility for logging and error handling",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "main": "index.js",
   "license": "GPL-3.0",
