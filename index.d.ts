@@ -1,5 +1,5 @@
 import terminal from "./index.js";
 
-declare module "@guri/terminal" {
+declare module "@guritso/terminal" {
   export default terminal;
 }
