@@ -7,11 +7,18 @@ A terminal node utility for logging and error handling.
 To install the package, use the following command:
 
 ```bash
-pnpm install github:GuriTsuki/terminal
-# or
 npm install github:GuriTsuki/terminal
 # or
+pnpm install github:GuriTsuki/terminal
+# or
 yarn add @guri/terminal@github:GuriTsuki/terminal
+```
+
+### update
+
+```bash
+# add the new version on the end of the line
+pnpm/npm/yarn install/add @guri/terminal@github:GuriTsuki/terminal#v1.0.0
 ```
 
 ## Usage
@@ -34,10 +41,11 @@ terminal.log(new Error('This is an error message'));
 
 ## API
 
-### `terminal.start(port)`
+### `terminal.start(host, port)`
 
-Displays the project info and the port.
+Displays the project info and the host and port.
 
+- `host` (string): The host to display.
 - `port` (number): The port number to display.
 
 ### `terminal.pass(data)`
@@ -54,7 +62,7 @@ Displays a log message.
 
 ### `terminal.setVerbose(verbose)`
 
-Sets the verbose level.
+Sets the verbose level. (0 = no output, 1 = same line output (does't apply for pass), 2 = new line output)
 
 - `verbose` (number): The verbose level.
 
