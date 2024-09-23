@@ -39,3 +39,6 @@ jspm_packages/
 *.ntvs*
 *.njsproj
 *.sln
+
+# npm
+package-lock.json
