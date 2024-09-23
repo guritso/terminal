@@ -20,7 +20,7 @@
     "utility"
   ],
   "author": "GuriTsuki",
-  "dependencies": {
+  "devDependencies": {
     "jest": "^29.7.0"
   }
 }
