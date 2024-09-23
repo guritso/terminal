@@ -19,5 +19,6 @@
     "cli",
     "utility"
   ],
-  "author": "GuriTsuki"
+  "author": "GuriTsuki",
+  "packageManager": "pnpm@9.10.0"
 }
