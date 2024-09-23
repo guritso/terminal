@@ -8,14 +8,14 @@ A terminal node utility for logging and error handling.
 
 ## Installation
 
-To install the package, use the following command:
+To install the package:
 
 ```bash
-npm install github:GuriTsuki/terminal
+npm install @guritso/terminal
 # or
-pnpm install github:GuriTsuki/terminal
+pnpm install @guritso/terminal
 # or
-yarn add @guri/terminal@github:GuriTsuki/terminal
+yarn add @guritso/terminal
 ```
 
 ## Usage
