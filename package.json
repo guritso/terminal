@@ -17,7 +17,8 @@
     "logging",
     "error-handling",
     "cli",
-    "utility"
+    "utility",
+    "backend"
   ],
   "author": "GuriTso",
   "devDependencies": {
