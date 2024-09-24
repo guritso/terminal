@@ -1,6 +1,4 @@
-import { jest } from "@jest/globals";
-
-import terminal from "../index.js";
+const terminal = require("../index.js");
 
 describe("Terminal Module", () => {
   beforeEach(() => {
