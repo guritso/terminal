@@ -72,9 +72,12 @@ Displays a log message.
 
 ### `terminal.setVerbose(verbose)`
 
-Sets the verbose level. (0 = no output (does't apply for start()), 1 = same line output (does't apply for pass), 2 = new line output)
+Sets the verbose level.
 
 - `verbose` (number): The verbose level.
+  - `0`: no output (does't apply for `terminal.start()`)
+  - `1`: same line output (does't apply for `terminal.pass()`)
+  - `2`: new line output (default)
 
 ## License
 
