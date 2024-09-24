@@ -4,7 +4,7 @@ A terminal node utility for logging and error handling.
 
 | example |
 | ------- |
-| ![example](https://i.ibb.co/sm49x0x/Captura-de-tela-de-2024-09-23-05-59-20.png) |
+| ![example](https://i.ibb.co/WHD4mXn/guritso-terminal-preview.png) |
 
 ## Installation
 
@@ -75,9 +75,6 @@ Displays a log message.
 Sets the verbose level. (0 = no output (does't apply for start()), 1 = same line output (does't apply for pass), 2 = new line output)
 
 - `verbose` (number): The verbose level.
-
-
-## Methods
 
 ## License
 
