@@ -12,10 +12,6 @@ To install the package:
 
 ```bash
 npm install @guritso/terminal
-# or
-pnpm install @guritso/terminal
-# or
-yarn add @guritso/terminal
 ```
 
 ## Usage
@@ -23,7 +19,16 @@ yarn add @guritso/terminal
 To use the package, import it into your project:
 
 ```javascript
+const terminal = require('@guritso/terminal');
+```
+
+or ESM:
+
+```javascript
 import terminal from '@guritso/terminal';
+```
+
+```javascript
 // Setup the terminal (this is necessary to use the console.error function)
 terminal.setup();
 
