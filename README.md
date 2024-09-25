@@ -1,6 +1,6 @@
 # @guritso/terminal
 
-A terminal node utility for logging and error handling.
+A terminal node utility for enhanced logging and error handling.
 
 | example |
 | ------- |
