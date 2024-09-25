@@ -1,4 +1,6 @@
-const terminal = require("../index.js");
+const terminal = require("../index.cjs");
+
+const levels = terminal.levels;
 
 describe("Terminal Module", () => {
   beforeEach(() => {
@@ -29,6 +31,23 @@ describe("Terminal Module", () => {
       expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("PASS"));
       mockWrite.mockRestore();
     });
+
+    it("should use console.log instead of stdout.write when verbose is 2 and msg is an object", () => {
+      terminal.setVerbose(2);
+      const mockLog = jest.spyOn(console, "log").mockImplementation(() => true);
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
+
+      const message = { key: "value" };
+      terminal.pass(message);
+
+      expect(mockLog).toHaveBeenCalledWith(expect.stringContaining(levels.pass), message);
+      expect(mockWrite).not.toHaveBeenCalled();
+
+      mockLog.mockRestore();
+      mockWrite.mockRestore();
+    });
   });
 
   describe("log", () => {
@@ -39,13 +58,13 @@ describe("Terminal Module", () => {
         .mockImplementation(() => true);
 
       terminal.log("This is a log message");
-      terminal.pass("This is a pass message")
+      terminal.pass("This is a pass message");
       expect(mockWrite).not.toHaveBeenCalled();
 
       mockWrite.mockRestore();
     });
 
-    it("should write info message to stdout when verbose is 2", () => {
+    it("should write info message to stdout when verbose is 2 and msg is a string", () => {
       terminal.setVerbose(2);
       const mockWrite = jest
         .spyOn(process.stdout, "write")
@@ -56,25 +75,39 @@ describe("Terminal Module", () => {
       mockWrite.mockRestore();
     });
 
-    it("should write error message to stdout when it is an error", () => {
+    it("should use console.log instead of stdout.write when verbose is 2 and msg is an error string", () => {
       terminal.setVerbose(2);
+      const mockLog = jest.spyOn(console, "log").mockImplementation(() => true);
       const mockWrite = jest
         .spyOn(process.stdout, "write")
         .mockImplementation(() => true);
 
-      terminal.log("Error: Something went wrong");
-      expect(mockWrite).toHaveBeenCalledWith(expect.stringContaining("FAIL"));
+      const errorMessage = "Error: Something went wrong";
+
+      terminal.log(errorMessage);
+
+      expect(mockLog).toHaveBeenCalledWith(expect.stringContaining(levels.fail), errorMessage);
+      expect(mockWrite).not.toHaveBeenCalled();
+
+      mockLog.mockRestore();
       mockWrite.mockRestore();
     });
 
-    it("should write object to console.log when data is an object", () => {
+    it("should use console.log instead of stdout.write when verbose is 2 and msg is an object", () => {
       terminal.setVerbose(2);
       const mockLog = jest.spyOn(console, "log").mockImplementation(() => true);
+      const mockWrite = jest
+        .spyOn(process.stdout, "write")
+        .mockImplementation(() => true);
 
-      terminal.log({ key: "value" });
-      expect(mockLog).toHaveBeenCalledWith({ key: "value" });
+      const message = { key: "value" };
+      terminal.log(message);
+
+      expect(mockLog).toHaveBeenCalledWith(expect.stringContaining(levels.info), message);
+      expect(mockWrite).not.toHaveBeenCalled();
 
       mockLog.mockRestore();
+      mockWrite.mockRestore();
     });
   });
 
