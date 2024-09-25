@@ -1,5 +1,5 @@
 declare module "@guritso/terminal" {
-  interface Terminal {
+  export interface Terminal {
     verbose: number;
     readonly levels: {
       readonly info: string;
@@ -20,5 +20,5 @@ declare module "@guritso/terminal" {
   }
 
   const terminal: Terminal;
-  export default terminal;
+  export = terminal;
 }
