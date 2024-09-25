@@ -1,5 +1,5 @@
 declare module "@guritso/terminal" {
-  export interface Terminal {
+  interface Terminal {
     verbose: number;
     readonly levels: {
       readonly info: string;
