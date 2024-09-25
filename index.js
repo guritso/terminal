@@ -1,1 +1,1 @@
-module.exports = require('./lib/terminal.js');
+module.exports = require("./lib/terminal.js");
