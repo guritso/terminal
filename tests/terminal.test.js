@@ -39,6 +39,7 @@ describe("Terminal Module", () => {
         .mockImplementation(() => true);
 
       terminal.log("This is a log message");
+      terminal.pass("This is a pass message")
       expect(mockWrite).not.toHaveBeenCalled();
 
       mockWrite.mockRestore();
