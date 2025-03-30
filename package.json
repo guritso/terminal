@@ -32,8 +32,8 @@
   "author": "GuriTso",
   "devDependencies": {
     "jest": "^29.7.0",
-    "rollup": "^4.22.4"
-  },
+    "rollup": "^4.38.0"
+  }
   "directories": {
     "lib": "lib",
     "test": "tests"
@@ -41,5 +41,5 @@
   "bugs": {
     "url": "https://github.com/guritso/terminal/issues"
   },
-  "homepage": "https://github.com/guritso/terminal#readme"
+  "homepage": "https://github.com/guritso/terminal#readme",
 }
