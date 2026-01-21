@@ -2,6 +2,9 @@
 
 A terminal node utility for enhanced logging and error handling.
 
+[![Node.js CI](https://github.com/guritso/terminal/actions/workflows/node.js.yml/badge.svg)](https://github.com/guritso/terminal/actions/workflows/node.js.yml)
+[![NPM Package](https://github.com/guritso/terminal/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/guritso/terminal/actions/workflows/npm-publish.yml)
+
 | example |
 | ------- |
 | ![example](./docs/guritso-terminal-preview.png) |
