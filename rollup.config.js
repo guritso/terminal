@@ -4,5 +4,5 @@ export default {
     file: 'lib/dist/terminal.cjs',
     format: 'cjs',
   },
-  external: ['fs', 'url']
+  external: ['fs', 'url', 'path']
 };
