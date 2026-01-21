@@ -34,10 +34,14 @@
     "jest": "^30.2.0",
     "rollup": "^4.55.3"
   },
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
-  },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
   "bugs": {
     "url": "https://github.com/guritso/terminal/issues"
   },
