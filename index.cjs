@@ -1,1 +1,1 @@
-module.exports = require("./lib/cjs/terminal.cjs");
+module.exports = require("./lib/dist/terminal.cjs");
