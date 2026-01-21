@@ -4,7 +4,7 @@ A terminal node utility for enhanced logging and error handling.
 
 | example |
 | ------- |
-| ![example](https://i.ibb.co/WHD4mXn/guritso-terminal-preview.png) |
+| ![example](./docs/guritso-terminal-preview.png) |
 
 ## Installation
 
