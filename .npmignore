@@ -1,0 +1,12 @@
+node_modules/
+.git
+.github
+tests/
+docs/
+*.log
+.npm
+.env
+.DS_Store
+.vscode/
+.idea/
+*.tgz
